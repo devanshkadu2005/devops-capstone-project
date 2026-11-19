@@ -46,6 +46,11 @@ spec:
             httpGet:
               path: /health
               port: 8080
+              # Talisman redirects plain HTTP to HTTPS; the probe identifies
+              # itself as already-HTTPS (as the OpenShift router does)
+              httpHeaders:
+                - name: X-Forwarded-Proto
+                  value: https
             initialDelaySeconds: 5
             periodSeconds: 10
           resources:
